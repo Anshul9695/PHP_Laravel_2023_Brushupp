@@ -56,9 +56,10 @@
             </div>
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">
+            <!-- <button type="submit" id="btn_register" class="btn btn-primary btn-block mb-4">
               Sign up
-            </button>
+            </button> -->
+            <input type="submit" name="submit" value="Register" id="btn_register" class="btn btn-primary btn-block mb-4">
           </form>
           <div>
               <p class="mb-0">Already Have Account <a href="/" class="text-green-50 fw-bold">Sign In</a>
@@ -74,4 +75,23 @@
 @endsection
 
 @section('script')
+<script>
+  $(document).ready(function(){
+$("#register_form").submit(function(event){
+  event.preventDefault();
+  $("#btn_register").val("please wait...");
+  $.ajax({
+    url:"{{url('registerUser')}}",
+    type:'post',
+    data:$("#register_form").serializeArray(),
+    dataType:'json',
+    success:function(res){
+    console.log("getting data");
+    }
+
+
+  });
+});
+  });
+</script>
 @endsection

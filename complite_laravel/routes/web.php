@@ -18,3 +18,5 @@ Route::get('/',[UserController::class,'index'])->name('login_page');
 Route::get('/register',[UserController::class,'create'])->name('register');
 Route::get('/forget',[UserController::class,'forget'])->name('forget');
 Route::get('/reset',[UserController::class,'reset_password'])->name('reset');
+
+Route::post('/registerUser',[UserController::class,'registerUser'])->name('registerUser');
