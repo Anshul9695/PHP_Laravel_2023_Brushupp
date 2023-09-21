@@ -12,12 +12,17 @@ class UserController extends Controller
 
     public function index()
     {
-        
+
         return view('auth.login');
     }
     public function create()
     {
-        return view('auth.register');
+        if(session()->has('LoggedInUser')){
+            return redirect('/profile');
+        }else{
+            return view('auth.register');
+        }
+  
     }
 
     public function forget()
@@ -50,18 +55,62 @@ class UserController extends Controller
                 'status' => 400,
                 'message' => $validater->getMessageBag(),
             ]);
-        }else{
+        } else {
 
-            $user=new User();
-            $user->name=$request->name;
-            $user->email=$request->email;
-            $user->password=Hash::make($request->password);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
             $user->save();
             return response()->json([
-                'status'=>200,
-                'message'=>'User Registerd successfully'
+                'status' => 200,
+                'message' => 'User Registerd successfully'
             ]);
+        }
+    }
+    public function loginPost(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'email' => 'required|email|max:50',
+            'password' => 'required|min:6'
+        ]);
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $validation->getMessageBag()
+            ]);
+        } else {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                if (Hash::check($request->password, $user->password)) {
+                    $request->session()->put('LoggedInUser', $user->id);
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'success'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 401,
+                        'message' => 'Email Or Password is InCorrect'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 400,
+                    'message' => 'User Not Found'
+                ]);
+            }
+        }
+    }
 
+    public function profile(){
+        return view('auth.profile');
+    }
+
+    public function logout(){
+        if(session()->has('LoggedInUser')){
+            session()->pull('LoggedInUser');
+            return redirect('/');
         }
     }
 

@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[UserController::class,'index'])->name('login_page');
-Route::get('/register',[UserController::class,'create'])->name('register');
-Route::get('/forget',[UserController::class,'forget'])->name('forget');
-Route::get('/reset',[UserController::class,'reset_password'])->name('reset');
 
-Route::post('/registerUser',[UserController::class,'registerUser'])->name('registerUser');
+Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::get('/forget', [UserController::class, 'forget'])->name('forget');
+Route::get('/reset', [UserController::class, 'reset_password'])->name('reset');
+
+Route::post('/registerUser', [UserController::class, 'registerUser'])->name('registerUser');
+Route::post('/loginPost', [UserController::class, 'loginPost'])->name('loginPost');
+
+Route::group(['middleware' => ['Logincheck']], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+});

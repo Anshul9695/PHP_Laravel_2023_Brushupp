@@ -22,6 +22,7 @@
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8">
           <h2 class="fw-bold mb-5">Sign up now</h2>
+          <div id="show_error_msg"></div>
           <form id="register_form" method="post">
             @csrf
             <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -30,12 +31,14 @@
                 <div class="form-outline">
                   <input type="text" id="name" name="name" class="form-control" />
                   <label class="form-label" for="form3Example1">Full Name</label>
+                  <div class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="col-md-6 mb-4">
                 <div class="form-outline">
-                <input type="email" name="email" id="form3Example3" class="form-control" />
+                <input type="email" name="email" id="email" class="form-control" />
               <label class="form-label" for="form3Example3">Email address</label>
+              <div class="invalid-feedback"></div>
                 </div>
               </div>
             </div>
@@ -45,12 +48,14 @@
                 <div class="form-outline">
                 <input type="password" id="password" name="password" class="form-control" />
               <label class="form-label" for="form3Example4">Password</label>
+              <div class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="col-md-6 mb-4">
                 <div class="form-outline">
                 <input type="password" id="cnf_password" name="cnf_password" class="form-control" />
               <label class="form-label" for="form3Example4">Confirm Password</label>
+              <div class="invalid-feedback"></div>
                 </div>
               </div>
             </div>
@@ -86,7 +91,18 @@ $("#register_form").submit(function(event){
     data:$("#register_form").serializeArray(),
     dataType:'json',
     success:function(res){
-    console.log("getting data");
+   if(res.status==400){
+    showError('name',res.message.name);
+    showError('email',res.message.email);
+    showError('password',res.message.password);
+    showError('cnf_password',res.message.cnf_password);
+    $("#btn_register").val("Register..");
+   }else if(res.status==200){
+$("#show_error_msg").html(showMessage('success',res.message));
+$("#register_form")[0].reset();
+removeValidationClasses("#register_form");
+$("#btn_register").val("Register..");
+   }
     }
 
 
