@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -18,12 +19,11 @@ class UserController extends Controller
     }
     public function create()
     {
-        if(session()->has('LoggedInUser')){
+        if (session()->has('LoggedInUser')) {
             return redirect('/profile');
-        }else{
+        } else {
             return view('auth.register');
         }
-  
     }
 
     public function forget()
@@ -104,18 +104,48 @@ class UserController extends Controller
         }
     }
 
-    public function profile(){
-        $data=['userInfo'=>DB::table('users')->where('id',session('LoggedInUser'))->first()];
+    public function profile()
+    {
+        $data = ['userInfo' => DB::table('users')->where('id', session('LoggedInUser'))->first()];
 
-        return view('auth.profile',$data);
+        return view('auth.profile', $data);
     }
-    public function logout(){
-        if(session()->has('LoggedInUser')){
+    public function logout()
+    {
+        if (session()->has('LoggedInUser')) {
             session()->pull('LoggedInUser');
             return redirect('/');
         }
     }
 
+    public function update_profile(Request $request)
+    {
+        $id = $request->id;
+        $user_id = User::find($id);
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $extenstion = $file->getClientOriginalExtension();
+            $file_name = time() . '.' . $extenstion;
+            $file->storeAs('public/uploads/images/', $file_name);
+            if ($user_id->picture) {
+                Storage::delete('public/uploads/images/', $user_id->picture);
+            }
+        }
+        User::where('id', $id)->update(['picture' => $file_name]);
+        return response()->json(['status' => 200, 'message' => 'Profile Image Update Successfully..']);
+    }
+    public function update_profile_data(Request $request)
+    {
+      
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'phone' => $request->phone,
+        ]);
+        return response()->json(['status' => 200, 'message' => 'User Profile Details Updated successfully']);
+    }
     public function show(User $user)
     {
         //

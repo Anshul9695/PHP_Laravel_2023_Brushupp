@@ -26,4 +26,6 @@ Route::group(['middleware' => ['Logincheck']], function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::post('/update_profile',[UserController::class,'update_profile'])->name('update_profile');
+    Route::post('/update_profile_data',[UserController::class,'update_profile_data'])->name('update_profile_data');
 });
