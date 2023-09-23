@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -104,9 +105,10 @@ class UserController extends Controller
     }
 
     public function profile(){
-        return view('auth.profile');
-    }
+        $data=['userInfo'=>DB::table('users')->where('id',session('LoggedInUser'))->first()];
 
+        return view('auth.profile',$data);
+    }
     public function logout(){
         if(session()->has('LoggedInUser')){
             session()->pull('LoggedInUser');
