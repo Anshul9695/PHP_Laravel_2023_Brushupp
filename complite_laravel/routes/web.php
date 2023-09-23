@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::get('/forget', [UserController::class, 'forget'])->name('forget');
-Route::get('/reset', [UserController::class, 'reset_password'])->name('reset');
+Route::get('/reset/{email}/{token}', [UserController::class, 'reset_password'])->name('reset');
 
 Route::post('/registerUser', [UserController::class, 'registerUser'])->name('registerUser');
 Route::post('/loginPost', [UserController::class, 'loginPost'])->name('loginPost');
@@ -29,3 +29,4 @@ Route::group(['middleware' => ['Logincheck']], function () {
     Route::post('/update_profile',[UserController::class,'update_profile'])->name('update_profile');
     Route::post('/update_profile_data',[UserController::class,'update_profile_data'])->name('update_profile_data');
 });
+Route::post('/forget',[UserController::class,'forget_password'])->name('forget');

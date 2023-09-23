@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\forgetPassword;
 use App\Models\User;
+// use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -136,7 +141,7 @@ class UserController extends Controller
     }
     public function update_profile_data(Request $request)
     {
-      
+
         User::where('id', $request->id)->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -146,24 +151,29 @@ class UserController extends Controller
         ]);
         return response()->json(['status' => 200, 'message' => 'User Profile Details Updated successfully']);
     }
-    public function show(User $user)
+    public function forget_password(Request $request)
     {
-        //
-    }
-
-
-    public function edit(User $user)
-    {
-        //
-    }
-
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    public function destroy(User $user)
-    {
-        //
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email|max:50'
+        ]);
+        if ($validate->fails()) {
+            return response()->json(['status' => 400, 'message' => 'Email Not Found']);
+        } else {
+            $token = Str::uuid();
+            $user = DB::table('users')->where('email', $request->email)->first();
+            $details = [
+                'body' => route('reset', ['email' => $request->email, 'token' => $token])
+            ];
+            if ($user) {
+                User::where('email', $request->email)->update([
+                    'token' => $token,
+                    'token_expire' => Carbon::now()->addMinutes(10)->toDateTimeString()
+                ]);
+                Mail::to($request->email)->send(new forgetPassword($details));
+                return response()->json(['status' => 200, 'message' => 'Reset password link has been send to your Email']);
+            } else {
+                return response()->json(['status' => 401, 'message' => 'Email is not Registerd with us']);
+            }
+        }
     }
 }
