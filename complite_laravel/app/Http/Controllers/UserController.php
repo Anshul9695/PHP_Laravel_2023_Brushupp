@@ -35,9 +35,46 @@ class UserController extends Controller
     {
         return view('auth.forget');
     }
-    public function reset_password()
+    public function reset_password(Request $request)
     {
-        return view('auth.reset_password');
+        $email = $request->email;
+        $token = $request->token;
+        return view('auth.reset_password', ['email' => $email, 'token' => $token]);
+    }
+    public function resetPassword(Request $request)
+    {
+        $validater = Validator::make(
+            $request->all(),
+            [
+                'password' => 'required|min:6|max:50',
+                'cnf_password' => 'required|min:6|same:password',
+            ],
+            [
+                'cnf_password.same' => 'password did not mached',
+                'cnf_password.required' => 'confirm password is required'
+            ]
+        );
+        if ($validater->fails()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $validater->getMessageBag(),
+            ]);
+        } else {
+            $user = DB::table('users')
+            ->where('email', $request->email)
+            ->whereNotNull('token')
+            ->where('token', $request->token)->where('token_expire','>',Carbon::now())->exists();
+            if ($user) {
+                User::where('email', $request->email)->update([
+                    'password' => Hash::make($request->password),
+                    'token' => null,
+                    'token_expire' => null
+                ]);
+                return response()->json(['status'=>200,'message'=>'New Password Updated  <a href="/">Login</a>']);
+            }else{
+                return response()->json(['status'=>401,'message'=>'Reset link Expired plase try Again']);
+            }
+        }
     }
 
     public function registerUser(Request $request)

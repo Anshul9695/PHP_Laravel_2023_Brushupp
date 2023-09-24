@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::get('/forget', [UserController::class, 'forget'])->name('forget');
 Route::get('/reset/{email}/{token}', [UserController::class, 'reset_password'])->name('reset');
+Route::post('/resetPassword',[UserController::class,'resetPassword'])->name('resetPassword');
 
 Route::post('/registerUser', [UserController::class, 'registerUser'])->name('registerUser');
 Route::post('/loginPost', [UserController::class, 'loginPost'])->name('loginPost');
