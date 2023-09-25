@@ -11,7 +11,9 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-4"><img id="image_preview" class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></div>
             @endif
             <div class="col-md-12"><label class="labels">change Profile Picture</label><input type="file" class="form-control" name="picture" id="picture" placeholder="choose Image" value=""></div>
-
+            <div class="mt-5 text-center">
+                            <button class="btn btn-danger profile-button" type="button" style="text-decoration: none;"><a href="{{route('logout')}}">Logout</a></button>
+                        </div>
         </div>
      
         <div class="col-md-5 border-right">
@@ -22,9 +24,7 @@
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">User Profile</h4>
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-danger profile-button" type="button" style="text-decoration: none;"><a href="{{route('logout')}}">Logout</a></button>
-                        </div>
+                       
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" class="form-control" placeholder="name" value="{{$userInfo->name}}"></div>
@@ -46,21 +46,24 @@
                         <div class="col-md-6">
                             <label for="birthday">Birthday:</label>
                             <input type="date" id="dob" name="dob" value="{{$userInfo->dob}}" class="form-control">
-
                         </div>
-
                     </div>
 
                     <div class="mt-5 text-center"><input class="btn btn-primary profile-button" id="profile_update" type="submit" value="Update Profile" name="submit">
-
-
                     </div>
-
                 </div>
             </form>
-
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Manage Blogs</span></div><br>
+                <div class="col-md-12"><a href="" >My Blog List</a></div> <br>
+                <div class="col-md-12"><a href="{{route('create_blog')}}" >Create New Blog</a></div> <br>
+                <div class="col-md-12"><a href="" >Trash Blog List</a></div> <br>
+            </div>
         </div>
     </div>
+    
 </div>
 @endsection
 
