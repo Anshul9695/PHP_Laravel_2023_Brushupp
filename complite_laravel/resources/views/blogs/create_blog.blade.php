@@ -6,6 +6,8 @@
     <div class="row">
 
         <div class="col-md-5 border-right">
+        <div class="col-md-12"><a href="{{route('postListByUser')}}" ><button class="btn btn-primary"> My Blog List</button></a></div> <br>
+
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Create New Blog Post</h4>

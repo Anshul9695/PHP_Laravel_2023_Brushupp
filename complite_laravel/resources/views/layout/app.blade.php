@@ -26,7 +26,7 @@
         <a class="nav-link" href="{{route('register')}}">Register <span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('register')}}">Our Blog <span class="sr-only"></span></a>
+        <a class="nav-link" href="{{route('get_all_post_front')}}">Our Blog <span class="sr-only"></span></a>
       </li>
     </ul>
     

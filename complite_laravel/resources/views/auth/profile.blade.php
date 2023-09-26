@@ -57,7 +57,7 @@
         <div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Manage Blogs</span></div><br>
-                <div class="col-md-12"><a href="" >My Blog List</a></div> <br>
+                <div class="col-md-12"><a href="{{route('postListByUser')}}" >My Blog List</a></div> <br>
                 <div class="col-md-12"><a href="{{route('create_blog')}}" >Create New Blog</a></div> <br>
                 <div class="col-md-12"><a href="" >Trash Blog List</a></div> <br>
             </div>

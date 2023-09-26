@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['Logincheck']], function () {
     // Manage User Blog create update and delete and display by user role
 Route::get('/create_blog',[BlogController::class,'create_blog'])->name('create_blog');
 Route::post('/savePost',[BlogController::class,'savePost'])->name('savePost');
-
+Route::get('/postListByUser',[BlogController::class,'postListByUser'])->name('postListByUser');
+Route::get('/get_post_list',[BlogController::class,'get_post_list'])->name('get_post_list');
 });
+Route::get('/get_all_post_front',[BlogController::class,'get_all_post_front'])->name('get_all_post_front');
+Route::get('/viewDetails/{id}',[BlogController::class,'viewDetails'])->name('viewDetails');
 

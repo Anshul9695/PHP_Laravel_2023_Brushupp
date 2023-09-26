@@ -50,4 +50,64 @@ class BlogController extends Controller
             return response()->json(['status' => 200, 'message' => 'blog saved successfully']);
         }
     }
+    public function postListByUser(){
+        return view('blogs.list_blog');
+    }
+    public function get_post_list(Request $request){
+        $data = DB::table('users')->where('id', session('LoggedInUser'))->first(); //get logged in user id
+        $user_id=$data->id;
+       //$blog_list=Blog::find($user_id);
+       $list=DB::table('blogs')
+       ->leftJoin('users','users.id','blogs.user_id')
+       ->whereUserId($user_id)
+       ->get();
+    
+       //list of blog
+      // $blog_list = Blog::whereUserId($user_id)->get();
+      return response()->json([
+        'status'=>200,
+        'blog_list'=>$list,
+        'message'=>'data getting successfully'
+      ]);
+    }
+    public function get_all_post_front(Request $request){
+        $list=DB::table('blogs')
+        ->select(
+            'blogs.id',
+            'blogs.blog_name',
+            'blogs.blog_title',
+            'blogs.discription',
+            'blogs.blog_image',
+            'users.name as author_name',
+            'users.id as author_id',
+            'blogs.status',
+        )
+        ->leftJoin('users','users.id','blogs.user_id')
+        ->where('blogs.status','=',1)
+        ->get();
+       return view('blogs.display_all_front')->with('list',$list);
+    }
+    public function viewDetails($id){
+        // echo $id;
+        // die;
+        // $blog_id=Blog::find($id);
+        $data=DB::table('blogs')
+        ->select(
+            'blogs.id',
+            'blogs.blog_name',
+            'blogs.blog_title',
+            'blogs.discription',
+            'blogs.blog_image',
+            'blogs.created_at',
+           'users.name as author_name',
+           'users.id as author_id',
+            'blogs.status',
+        )
+        ->leftJoin('users','users.id','blogs.user_id')
+        ->where('blogs.id','=',$id)
+        ->get();
+    return view('blogs.detailsView')->with('data',$data);
+    //    return response()->json(['status'=>200,'message'=>'getting data successfully','data'=>$blog_id]);
+    }
+  
 }
