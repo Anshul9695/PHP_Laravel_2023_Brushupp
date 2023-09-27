@@ -102,10 +102,19 @@ class BlogController extends Controller
            'users.name as author_name',
            'users.id as author_id',
             'blogs.status',
+
+            'comments.comment_id',
+            'comments.c_name',
+            'comments.c_email',
+            'comments.comment',
+           
         )
         ->leftJoin('users','users.id','blogs.user_id')
+        ->leftJoin('comments','comments.blog_id','blogs.id')
         ->where('blogs.id','=',$id)
         ->get();
+        // echo "<pre>";
+        // print_r($data);
     return view('blogs.detailsView')->with('data',$data);
     //    return response()->json(['status'=>200,'message'=>'getting data successfully','data'=>$blog_id]);
     }

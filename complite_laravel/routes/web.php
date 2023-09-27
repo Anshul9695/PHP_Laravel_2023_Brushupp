@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
+
 use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +41,7 @@ Route::get('/get_post_list',[BlogController::class,'get_post_list'])->name('get_
 });
 Route::get('/get_all_post_front',[BlogController::class,'get_all_post_front'])->name('get_all_post_front');
 Route::get('/viewDetails/{id}',[BlogController::class,'viewDetails'])->name('viewDetails');
+// manage comment section for user 
+
+Route::post('/addComment',[CommentsController::class,'addComment'])->name('addComment');
 
