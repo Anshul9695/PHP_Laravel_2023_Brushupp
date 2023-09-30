@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,14 @@ Route::post('/login_post',[AdminController::class,'login_post'])->name('login_po
 
 Route::group(['middleware' => ['checkUserLogin']], function () {
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
-    Route::get('/add_category',[AdminController::class,'add_category'])->name('add_category');
     Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+
+    // manage category 
+    Route::get('/add_category',[CategoryController::class,'add_category'])->name('add_category');
+    Route::post('/categoryPost',[CategoryController::class,'categoryPost'])->name('categoryPost');
+    Route::get('/categoryList',[CategoryController::class,'categoryList'])->name('categoryList');
+    Route::get('/CateList',[CategoryController::class,'CateList'])->name('CateList');
+    Route::get('/deleteData/{id}',[CategoryController::class,'deleteData'])->name('deleteData');
+    Route::get('/editCat/{cat_id}',[CategoryController::class,'editCat'])->name('editCat');
+    Route::post('/updateCat',[CategoryController::class,'updateCat'])->name('updateCat');
 });

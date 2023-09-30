@@ -183,4 +183,5 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  @yield('script')
 @extends('Admin.layouts.footer')

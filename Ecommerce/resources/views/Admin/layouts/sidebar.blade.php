@@ -35,7 +35,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          <!-- <li class="nav-item menu-open">
            
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -57,9 +57,93 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
         
-     
+
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{route('dashboard')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>My Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('logout')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Logout Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+              
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Category Manager
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{route('add_category')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('categoryList')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+                 
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+               Brand Manager
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{route('add_category')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Brand</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('categoryList')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brand List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
        
        
         </ul>
