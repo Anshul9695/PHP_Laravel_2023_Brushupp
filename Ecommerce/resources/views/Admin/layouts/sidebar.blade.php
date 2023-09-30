@@ -127,13 +127,13 @@
             </a>
             <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="{{route('add_category')}}" class="nav-link">
+                <a href="{{route('add_brand_form')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Brand</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('categoryList')}}" class="nav-link">
+                <a href="{{route('getBrand')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Brand List</p>
                 </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +39,11 @@ Route::group(['middleware' => ['checkUserLogin']], function () {
     Route::get('/deleteData/{id}',[CategoryController::class,'deleteData'])->name('deleteData');
     Route::get('/editCat/{cat_id}',[CategoryController::class,'editCat'])->name('editCat');
     Route::post('/updateCat',[CategoryController::class,'updateCat'])->name('updateCat');
+
+    // Manage the Brands 
+    Route::get('/add_brand_form',[BrandController::class,'add_brand_form'])->name('add_brand_form');
+    Route::post('/add_brand_post',[BrandController::class,'AddBrand'])->name('add_brand_post');
+    Route::get('/getBrand',[BrandController::class,'getBrand'])->name('getBrand');
+    Route::get('/getBrandData',[BrandController::class,'getBrandData'])->name('getBrandData');
+    Route::get('/deleteDatabrand/{brand_id}',[BrandController::class,'deleteDatabrand'])->name('deleteDatabrand');
 });
