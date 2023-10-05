@@ -14,6 +14,7 @@
                     <th style="width: 10px">ID</th>
                     <th>brand Name</th>
                     <th>Discription</th>
+                    <th>Created At</th>
                     <th>brand Image</th>
                     <th>Action</th>
                 </tr>
@@ -21,6 +22,7 @@
             <tbody>
             </tbody>
         </table>
+       <div id="page_links"></div>
     </div>
     <!-- /.card-body -->
 </div>
@@ -31,6 +33,8 @@
             url: "{{route('getBrandData')}}",
             method: "GET",
             success: function(data) {
+                console.log(data);
+                
                 if (data.data.length > 0) {
 
                     for (let i = 0; i < data.data.length; i++) {
@@ -39,8 +43,9 @@
                         <td>` + (i + 1) + `</td>
                         <td>` + (data.data[i]['brand_name']) + `</td>
                         <td>` + (data.data[i]['brand_description']) + `</td>
+                        <td>` + (data.data[i]['created_at']) + `</td>
                         <td><img src="{{asset('storage/uploads/brandImage/` + img + `')}}" height="50px;" width="50px;"></td>
-                        <td><a href="editCat/` + (data.data[i]['brand_id']) + `"><button class="btn btn-primary">Edit</button></a></td>
+                        <td><a href="editBrand/` + (data.data[i]['brand_id']) + `"><button class="btn btn-primary">Edit</button></a></td>
                         <td><a href="#" class="deleteData" data-id="` + (data.data[i]['brand_id']) + `"><button class="btn btn-danger">Delete</button></a></td>
                         </tr>`);
                     }

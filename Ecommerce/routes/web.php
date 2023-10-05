@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\SizeController;
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +49,18 @@ Route::group(['middleware' => ['checkUserLogin']], function () {
     Route::get('/getBrand',[BrandController::class,'getBrand'])->name('getBrand');
     Route::get('/getBrandData',[BrandController::class,'getBrandData'])->name('getBrandData');
     Route::get('/deleteDatabrand/{brand_id}',[BrandController::class,'deleteDatabrand'])->name('deleteDatabrand');
+    Route::get('/editBrand/{brand_id}',[BrandController::class,'editBrand'])->name('editBrand');
+    Route::post('/updateBrand',[BrandController::class,'updateBrand'])->name('updateBrand');
+
+    // Product Attributs manager 
+    Route::get('/size',[SizeController::class,'SizeIndex'])->name('size');
+    Route::post('/sizeAdd',[SizeController::class,'SizeAdd'])->name('sizeAdd');
+    Route::get('/sizeList',[SizeController::class,'sizeList'])->name('sizeList');
+    Route::get('/sizeListData',[SizeController::class,'sizeListData'])->name('sizeListData');
+
+    // COUNTRY CITY STATE DROP DOWN BY AJAX 
+    Route::get('/getCountry',[CountryController::class,'getCountry'])->name('getCountry');
+    Route::post('/getCity/{country_id}',[CountryController::class,'getCity'])->name('getCity');
+    Route::post('/getState/{city_id}',[CountryController::class,'getState'])->name('getState');
+    Route::post('/getVillage/{state_id}',[CountryController::class,'getVillage'])->name('getVillage');
 });

@@ -91,6 +91,31 @@
             </ul>
           </li>
 
+                
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Country City State
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{route('getCountry')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>DropDown</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('categoryList')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
               
           <li class="nav-item menu-is-opening menu-open">
             <a href="#" class="nav-link active">
@@ -136,6 +161,43 @@
                 <a href="{{route('getBrand')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Brand List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item menu-is-opening menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+           Product Attributes Manager
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="{{route('size')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Size</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('sizeList')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Size List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('getBrand')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Color</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('getBrand')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Color List</p>
                 </a>
               </li>
             </ul>
